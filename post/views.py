@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Category
 
 
@@ -33,3 +33,12 @@ def category_validation(data,action,category_id=None):
                 errors['title'] = 'title is duplicated'
 
     return errors
+
+
+
+def category_delete(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    if request.method == 'POST' and request.POST.get('_method') == 'DELETE':
+        category.delete()
+
+    return redirect('category_list')
