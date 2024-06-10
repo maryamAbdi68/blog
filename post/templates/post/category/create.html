@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <br><br>
+    <h1>Create New Category</h1>
+    <form method="POST" action="{% url 'category_store' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title: </label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title..">
+            {% if errors.title %}
+                <span class="text-danger">{{ errors.title }}</span>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Store Category</button>
+    </form>
+{% endblock %}

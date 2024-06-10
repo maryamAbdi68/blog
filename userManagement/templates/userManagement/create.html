@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <br><br>
+    <h1>Create New Author</h1>
+    <form method="POST" action="{% url 'author_store' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="first_name">FirstName: </label>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter Firstname..">
+            {% if errors.first_name %}
+                <span class="text-danger">{{ errors.first_name }}</span>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="last_name">Lastname: </label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Lastname..">
+        </div>
+        <div class="form-group">
+            <label for="age">Age: </label>
+            <input type="text" class="form-control" id="age" name="age" placeholder="Enter age..">
+            {% if errors.age %}
+                <span class="text-danger">{{ errors.age }}</span>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Store Author</button>
+    </form>
+{% endblock %}

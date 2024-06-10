@@ -1,0 +1,52 @@
+{% extends 'master.html' %}
+
+{% block content %}
+
+    <br><br>
+    <h1>List of authors</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th>Firstname</th>
+            <th>LastName</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for author in authors %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ author.first_name }}</td>
+                <td>{{ author.last_name }}</td>
+                <td>{{ author.age }}</td>
+                <td>{% if author.is_active %} Active {% else %} DeActive {% endif %}</td>
+                <td class="td-actions text-right">
+                    <div style="display: flex; gap: 5px">
+                        <a href="{% url 'author_active' author_id=author.id %}">
+                            <button type="button" rel="tooltip" class="btn btn-info btn-simple btn-icon btn-sm">
+                                <i class="now-ui-icons users_single-02"></i>
+                            </button>
+                        </a>
+                        <a href="{% url 'author_edit' author_id=author.id %}">
+                            <button type="button" rel="tooltip" class="btn btn-success btn-simple btn-icon btn-sm">
+                                <i class="now-ui-icons ui-2_settings-90"></i>
+                            </button>
+                        </a>
+                        <form method="POST" action="{% url 'author_delete' author_id=author.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" rel="tooltip" class="btn btn-danger btn-simple btn-icon btn-sm">
+                                <i class="now-ui-icons ui-1_simple-remove"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
