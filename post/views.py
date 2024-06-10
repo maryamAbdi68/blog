@@ -35,6 +35,8 @@ def category_validation(data,action,category_id=None):
     return errors
 
 
+def category_edit(request, category_id):
+    pass
 
 def category_delete(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
